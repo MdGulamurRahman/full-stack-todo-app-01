@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script defer src="/js/index.js"></script>
+  </head>
+  <body>
+    <!-- header section -->
+    <header class="bg-dark">
+      <div class="header container">
+        <a href="/logout" class="btn btn-light">Logout</a>
+      </div>
+    </header>
+    <!-- New Task Section -->
+    <div class="container inner_task">
+      <h2 class="text-center">Add Your New Task Here!</h2>
+      <form id="form" action="/addnewTask" method="post">
+        <div class="d-flex gap-2">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Task Name</label>
+            <input
+            name="taskname"
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Priority</label>
+            <select  name="priority" class="form-select" aria-label="Default select example">
+              <option disabled selected>-Select Priority-</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Date</label>
+            <input
+            name="date"
+              type="date"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <!-- hidden input -->
+          <input
+              name="id"
+              type="hidden"
+            />
+            <!-- hidden input -->
+          <div class="mb-3 d-flex align-items-end">
+            <button
+              style="height: 39px; width: 88px"
+              type="submit"
+              class="btn btn-primary"
+              id="submit"
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Task list section -->
+    <section class="container">
+      <h3>Your Task List</h3>
+      <table class="table">
+        <% if(todos.length > 0){ %> 
+        <thead>
+          <tr>
+            <th scope="col">SN.</th>
+            <th scope="col">TaskName</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <% } %> 
+
+
+        <tbody>
+
+<% if(todos.length > 0){ %> 
+      <% todos.forEach((todo, i)=>{%>
+       <tr id="<%=todo._id%>">
+            <td><%= i+1 %> </td>
+            <td class="taskname"><%= todo.taskname %> </td>
+            <td class="priority"><%=todo.priority%> </td>
+            <td class="status"><%= todo.status %></td>
+            <td class="date"><%= todo.date.toDateString() %> </td>
+           
+            <td >
+              <button data-id="<%= todo._id %>" class="btn btn-warning">Edit</button>
+              <a href="/deleteTask/<%=todo._id%>" class="btn btn-danger">Delete</a>
+              <a href="/updateStatus/<%=todo._id%>" class="btn btn-info">Change Status</a>
+            </td>
+          </tr>
+        <% })%>  
+<% }else{ %> 
+    
+  <p class="text-warning">You don't have any task!</p>
+
+  <% } %> 
+
+          
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>

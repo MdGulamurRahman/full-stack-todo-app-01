@@ -1,0 +1,10 @@
+.header {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.inner_task {
+  width: 50%;
+  margin: 20px auto;
+}
